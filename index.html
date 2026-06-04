@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keep Warm Software — Digital Sanctuary</title>
+    
+    <!-- Clean Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- HYGGE & MYS DESIGN SYSTEM --- */
+        :root {
+            --bg-slate: #1E222B;       /* Low-stimulus base canvas */
+            --panel-charcoal: #252A34; /* Soft card backgrounds */
+            --text-snow: #E2E8F0;      /* Glare-free body text */
+            --text-mist: #8A94A6;      /* Subdued grey for data rows */
+            --hearth-glow: #FFB74D;    /* Warm candlelight highlight */
+            --border-subtle: rgba(138, 148, 166, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-slate);
+            color: var(--text-snow);
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            line-height: 1.6;
+            letter-spacing: 0.02em;
+            padding: 4rem 2rem;
+            display: flex;
+            justify-content: center;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Ambient Hearth Glow Overlay */
+        .ambient-glow {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1000px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 183, 77, 0.03) 0%, rgba(30, 34, 43, 0) 75%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* Subtle Woven Textile Texture Overlay for Hygge Depth */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: linear-gradient(rgba(255,255,255,0.01) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255,255,255,0.01) 1px, transparent 1px);
+            background-size: 4px 4px;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .viewport-framework {
+            width: 100%;
+            max-width: 960px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* --- THE LOGO & BRAND HERO AREA --- */
+        .hero-banner {
+            display: flex;
+            align-items: flex-start;
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        @media (max-width: 600px) {
+            .hero-banner {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+        }
+
+        .logo-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            min-width: 120px;
+        }
+
+        .viking-ship-logo {
+            width: 70px;
+            height: 70px;
+            fill: none;
+            stroke: var(--hearth-glow);
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            margin-bottom: 0.5rem;
+        }
+
+        .logo-subtext {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-mist);
+        }
+
+        .hero-text-block {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .main-headline {
+            font-size: 1.6rem;
+            font-weight: 400;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .sub-headline {
+            font-size: 0.85rem;
+            color: var(--hearth-glow);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+
+        /* --- BUTTON MATRICES --- */
+        .cta-row {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.65rem 1.75rem;
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 20px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--hearth-glow);
+            color: var(--bg-slate);
+            border: 1px solid var(--hearth-glow);
+        }
+
+        .btn-primary:hover {
+            background-color: transparent;
+            color: var(--hearth-glow);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-snow);
+            border: 1px solid rgba(226, 232, 240, 0.3);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--text-snow);
+            background-color: rgba(226, 232, 240, 0.05);
+        }
+
+        /* --- TWIN-TRACK PORTFOLIO TILES --- */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+            margin-bottom: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .sanctuary-card {
+            background-color: var(--panel-charcoal);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 3rem 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+            transition: border-color 0.4s ease, transform 0.4s ease;
+        }
+
+        .sanctuary-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(255, 183, 77, 0.2);
+        }
+
+        .card-meta {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--text-mist);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-meta svg {
+            width: 14px;
+            height: 14px;
+            fill: none;
+            stroke: var(--text-mist);
+            stroke-width: 2;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+        }
+
+        .phase-list {
+            list-style: none;
+            margin-bottom: 2.5rem;
+        }
+
+        .phase-step {
+            margin-bottom: 1.25rem;
+            font-size: 0.85rem;
+            color: var(--text-mist);
+            padding-left: 1.25rem;
+            position: relative;
+        }
+
+        .phase-step::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0.55rem;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background-color: var(--hearth-glow);
+        }
+
+        .phase-step strong {
+            color: var(--text-snow);
+            font-weight: 400;
+        }
+
+        .action-link {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--hearth-glow);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: opacity 0.2s ease;
+        }
+
+        .action-link:hover {
+            opacity: 0.8;
+        }
+
+        /* --- FOOTER STATEMENT --- */
+        .ethos-footer {
+            text-align: center;
+            border-top: 1px solid rgba(138, 148, 166, 0.1);
+            padding-top: 2.5rem;
+        }
+
+        .ethos-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            color: var(--text-mist);
+            margin-bottom: 0.5rem;
+        }
+
+        .ethos-statement {
+            font-size: 0.95rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-weight: 400;
+            color: var(--text-snow);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-glow"></div>
+
+    <div class="viewport-framework">
+        
+        <!-- Hero Section featuring Viking Identity -->
+        <header class="hero-banner">
+            <div class="logo-wrapper">
+                <!-- Clean Minimalist Vector Viking Longship -->
+                <svg class="viking-ship-logo" viewBox="0 0 64 64">
+                    <path d="M12,24 C12,24 16,42 32,42 C48,42 52,24 52,24" />
+                    <path d="M32,42 L32,10 L46,22 L32,26" stroke-linejoin="round" />
+                    <path d="M6,16 C6,16 8,24 12,24 C16,24 18,18 18,18" />
+                    <path d="M58,16 C58,16 56,24 52,24 C48,24 46,18 46,18" />
+                    <circle cx="22" cy="30" r="2" />
+                    <circle cx="32" cy="32" r="2" />
+                    <circle cx="42" cy="30" r="2" />
+                </svg>
+                <span class="logo-subtext">Keep Warm</span>
+            </div>
+            
+            <div class="hero-text-block">
+                <h1 class="main-headline">Welcome to your digital sanctuary</h1>
+                <h2 class="sub-headline">Embrace the cozy calm of hygge & mys</h2>
+                
+                <div class="cta-row">
+                    <a href="#journey" class="btn btn-primary">Start Your Journey</a>
+                    <a href="#work" class="btn btn-secondary">Explore Our Work</a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Twin-Track Infrastructure Blocks -->
+        <main class="portfolio-grid">
+
+            <!-- TRACK 1: SYSTEM SIMULATION RESEARCH -->
+            <section class="sanctuary-card">
+                <div>
+                    <div class="card-meta">
+                        <!-- Shield Icon -->
+                        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        R&D / Systems Simulation
+                    </div>
+                    <h3 class="card-title">The Heuristic Project</h3>
+                    
+                    <ul class="phase-list">
+                        <li class="phase-step">
+                            <strong>Phase 1: Viking Heuristic</strong><br>
+                            Decentralized operational algorithms designed for volatile terrain.
+                        </li>
+                        <li class="phase-step">
+                            <strong>Phase 2: Systemic Stress Testing</strong><br>
+                            Evaluating topological resilience against macro bottleneck events.
+                        </li>
+                        <li class="phase-step">
+                            <strong>Phase 4: Agentic Mitigation</strong><br>
+                            Deploying autonomous code blocks to resolve flow friction points in real-time.
+                        </li>
+                    </ul>
+                </div>
+                <a href="#research-logs" class="action-link">Explore Laboratory Logs &rarr;</a>
+            </section>
+
+            <!-- TRACK 2: VIRTUAL ENGINE SOFTWARE -->
+            <section class="sanctuary-card">
+                <div>
+                    <div class="card-meta">
+                        <!-- Terminal/Code Icon -->
+                        <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                        Application / Virtual World
+                    </div>
+                    <h3 class="card-title">Project: Furious Mole</h3>
+                    
+                    <ul class="phase-list">
+                        <li class="phase-step">
+                            <strong>LSL Telemetry Engine</strong><br>
+                            Custom scripting models driving high-frequency spatial tracking.
+                        </li>
+                        <li class="phase-step">
+                            <strong>Cargo Hunting Subsystems</strong><br>
+                            Algorithmic matrix loops handling dynamic runtime data validation.
+                        </li>
+                        <li class="phase-step">
+                            <strong>Azure Storage Infrastructure</strong><br>
+                            Low-overhead transaction layers anchoring server data without system lag.
+                        </li>
+                    </ul>
+                </div>
+                <a href="#technical-manifest" class="action-link">View Technical Manifest &rarr;</a>
+            </section>
+
+        </main>
+
+        <!-- Bottom Brand Statement -->
+        <footer class="ethos-footer">
+            <p class="ethos-label">Our Sanctuary Ethos</p>
+            <p class="ethos-statement">Crafting technology that feels like a warm fire</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>
